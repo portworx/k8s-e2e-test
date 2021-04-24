@@ -31,7 +31,9 @@ DriverInfo:
   # RequiredMountOption:
 
   # Optional list of access modes required for provisiong. Default is RWO
-  # RequiredAccessModes:
+  RequiredAccessModes:
+    - RWX
+    - RWO
 
   # Map that represents the capabilities the driver supports
   Capabilities:
@@ -70,3 +72,5 @@ DriverInfo:
 
     # Support populated data from PVC
     pvcDataSource: true
+InlineVolumes:
+- Attributes: {}

@@ -19,6 +19,7 @@ DriverInfo:
   # Map of strings for supported FS types
   SupportedFsType:
     ext4: {}
+    xfs: {}
 
   # Optional number of allowed topologies that the driver requires. Only relevenat if TopologyKeys is set
   NumAllowedTopologies: 0
@@ -53,7 +54,7 @@ DriverInfo:
     nodeExpansion: true
 
     # Support volume that an run on single node only (like hostpath)
-    singleNodeVolume: false
+    singleNodeVolume: true
 
     # Support ReadWriteMany access modes
     RWX: true
@@ -66,3 +67,6 @@ DriverInfo:
 
     # Support populated data from PVC
     pvcDataSource: true
+
+InlineVolumes:
+- Attributes: {}

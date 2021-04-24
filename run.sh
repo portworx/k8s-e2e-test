@@ -1,9 +1,9 @@
 # Harcoded
 BASE_DIR=$PWD
-K8S_ORG_DIR=$GOPATH/src/github.com/kubernetes
-K8S_E2E_TEST_DIR=$K8S_ORG_DIR/kubernetes/test/e2e
+K8S_E2E_TEST_PATH=$PWD/e2e.test
 REPORTS_DIR=$BASE_DIR/reports
 LOGS_DIR=$BASE_DIR/logs
+SPECS_DIR=$BASE_DIR/specs
 SKIP_PATTERN="\[Serial\]|\[Disruptive\]|\[Feature:|Disruptive|different\s+node"
 
 # Configurable
@@ -15,15 +15,11 @@ CONFIG_PATH=$BASE_DIR/config/${CONFIG_NAME}.yaml
 RUN_ID=$(date +%s)
 
 set -x
-# Clone k8s if it does not exist and clone
-if [ ! -d "$K8S_ORG_DIR" ]; then
-  mkdir -p $K8S_ORG_DIR
-  
-  git clone --branch $K8S_VERSION git@github.com:kubernetes/kubernetes.git 
-  cd kubernetes
+# Download k8s test suite
+if test ! -f "$K8S_E2E_TEST_PATH"; then
+  curl --location https://dl.k8s.io/$K8S_VERSION/kubernetes-test-linux-amd64.tar.gz | \
+	  tar --strip-components=3 -zxf - kubernetes/test/bin/e2e.test kubernetes/test/bin/ginkgo
 fi
-cd $K8S_ORG_DIR/kubernetes
-pwd
 
 # Create folders
 mkdir -p $REPORTS_DIR
@@ -33,12 +29,11 @@ mkdir -p $LOGS_DIR
 kubectl apply -f $SPECS_DIR
 
 # Run tests
-cd ~/workspace/go/src/github.com/kubernetes/kubernetes
-ginkgo -v -p -focus=External.Storage \
-	-skip=$SKIP_PATTERN $K8S_E2E_TEST_DIR -- \
+$BASE_DIR/ginkgo -v -p -focus=External.Storage \
+	-skip=$SKIP_PATTERN $BASE_DIR/e2e.test -- \
 	-test.outputdir="$LOGS_DIR" \
 	-report-dir=$REPORTS_DIR \
-	-storage.testdriver=$CONFIG_PATH
+	-storage.testdriver=$CONFIG_PATH 
 
 # Cleanup specs
 kubectl delete -f $SPECS_DIR
