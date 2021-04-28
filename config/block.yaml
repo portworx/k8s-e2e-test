@@ -57,7 +57,7 @@ DriverInfo:
     singleNodeVolume: true
 
     # Support ReadWriteMany access modes
-    RWX: true
+    RWX: false
 
     # Support topology
     topology: false
@@ -68,5 +68,3 @@ DriverInfo:
     # Support populated data from PVC
     pvcDataSource: true
 
-InlineVolumes:
-- Attributes: {}

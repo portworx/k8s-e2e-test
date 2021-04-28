@@ -1,5 +1,5 @@
 # Harcoded
-BASE_DIR=$PWD
+BASE_DIR=$(pwd)
 K8S_E2E_TEST_PATH=$PWD/e2e.test
 REPORTS_DIR=$BASE_DIR/reports
 LOGS_DIR=$BASE_DIR/logs
@@ -27,9 +27,9 @@ mkdir -p $LOGS_DIR
 
 # Create pre-req specs
 kubectl apply -f $SPECS_DIR
-
+ls
 # Run tests
-$BASE_DIR/ginkgo -v -p -focus=External.Storage \
+./ginkgo -v -p -focus=External.Storage \
 	-skip=$SKIP_PATTERN $BASE_DIR/e2e.test -- \
 	-test.outputdir="$LOGS_DIR" \
 	-report-dir=$REPORTS_DIR \

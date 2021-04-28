@@ -20,10 +20,6 @@ DriverInfo:
   SupportedFsType:
     ext4: {}
 
-  # Map of strings for supported mount options
-  SupportedMountOption:
-    dirsync: {}
-
   # Optional number of allowed topologies that the driver requires. Only relevenat if TopologyKeys is set
   NumAllowedTopologies: 0
 
@@ -32,8 +28,8 @@ DriverInfo:
 
   # Optional list of access modes required for provisiong. Default is RWO
   RequiredAccessModes:
-    - RWX
-    - RWO
+    - ReadWriteMany
+    - ReadWriteOnce
 
   # Map that represents the capabilities the driver supports
   Capabilities:
@@ -72,5 +68,6 @@ DriverInfo:
 
     # Support populated data from PVC
     pvcDataSource: true
+
 InlineVolumes:
 - Attributes: {}
