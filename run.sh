@@ -31,7 +31,6 @@ ls
 # Run tests
 ./ginkgo -v -p -focus=External.Storage \
 	-skip=$SKIP_PATTERN $BASE_DIR/e2e.test -- \
-	-test.outputdir="$LOGS_DIR" \
 	-report-dir=$REPORTS_DIR \
 	-storage.testdriver=$CONFIG_PATH 
 
