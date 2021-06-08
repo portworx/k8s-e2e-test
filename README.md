@@ -13,9 +13,15 @@ This repo houses the nessesary scripts and configurations to run the k8s e2e tes
 docker run --rm -t \
 	-v <KUBECONFIG_LOCAL_PATH>:/tmp/kubeconfig \
 	-e KUBECONFIG=/tmp/kubeconfig \
+	-e K8S_VERSION=<kubernetes test version>
 	docker.io/openstorage/k8s-e2e-test:master
 ```
 
 ## Building 
-* Every commit is built and pushed to `docker.io/openstorage/k8s-e2e-test:master`
-* Manual build: `make build`
+Run `make build`
+
+## Updating image
+Run `make deploy`
+
+## Travis CI
+Each commit to this repo is pushed to `openstorage/k8s-e2e-test:master`
