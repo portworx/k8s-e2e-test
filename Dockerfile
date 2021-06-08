@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM ubuntu
 
 LABEL name="Portworx K8s e2e test" \
       vendor="portworx.com" \
@@ -13,7 +13,7 @@ COPY config /config
 COPY run.sh /run.sh
 COPY specs /specs
 
-RUN apk add --no-cache curl
+RUN apt-get update; apt-get install -y curl  
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin

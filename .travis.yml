@@ -1,0 +1,20 @@
+sudo: required
+dist: trusty
+language: go
+go:
+  - 1.15.x
+script:
+  - |
+    docker build -t docker.portworx.dev/portworx/k8s-e2e-test:master .
+    if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then
+      if [ "${TRAVIS_BRANCH}" == "master" ]; then
+        docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWORD}";
+        docker push docker.portworx.dev/portworx/k8s-e2e-test:master 
+      fi
+    fi
+notifications:
+  email:
+    on_success: always
+    on_failure: always
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

@@ -1,11 +1,11 @@
 ShortName: pxd
 StorageClass:
   # Load a StorageClass from the given file. This file must be in the same directory as this one
-  FromFile: /home2/grant/workspace/go/src/github.com/portworx/k8s-e2e-test/specs/storageclass.yaml
+  FromFile: /specs/storageclass.yaml
   
 SnapshotClass:
   # Must be set to enable snapshotting tests
-  FromFile: /home2/grant/workspace/go/src/github.com/portworx/k8s-e2e-test/specs/snapshotclass.yaml
+  FromFile: /specs/snapshotclass.yaml
 
 DriverInfo:
   # Internal name of the driver, this is used as a display name in the test case and test objects
