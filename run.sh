@@ -30,6 +30,3 @@ kubectl apply -f $SPECS_DIR
 	-skip=$SKIP_PATTERN ./e2e.test -- \
 	-report-dir=$REPORTS_DIR \
 	-storage.testdriver=$CONFIG_PATH 
-
-# Cleanup specs
-kubectl delete -f $SPECS_DIR
