@@ -7,13 +7,15 @@ This repo houses the nessesary scripts and configurations to run the k8s e2e tes
 ## Pre-reqs
 1. Install k8s cluster via [kubeup](https://github.com/lpabon/kubeup) or similar method
 2. Install [Portworx CSI Driver](https://docs.portworx.com/portworx-install-with-kubernetes/storage-operations/csi/)
-3. Set `KUBECONFIG` to be the target test cluster 
 
 ## Running tests
 ```
-./run.sh
+docker run --rm -t \
+	-v <KUBECONFIG_LOCAL_PATH>:/tmp/kubeconfig \
+	-e KUBECONFIG=/tmp/kubeconfig \
+	docker.io/openstorage/k8s-e2e-test:master
 ```
 
-## Configuring tests
-See configurable variables in `run.sh` headers.
-
+## Building 
+* Every commit is built and pushed to `docker.io/openstorage/k8s-e2e-test:master`
+* Manual build: `docker build -t openstorage/k8s-e2e-test:master .`
