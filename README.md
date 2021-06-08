@@ -18,4 +18,4 @@ docker run --rm -t \
 
 ## Building 
 * Every commit is built and pushed to `docker.io/openstorage/k8s-e2e-test:master`
-* Manual build: `docker build -t openstorage/k8s-e2e-test:master .`
+* Manual build: `make build`
