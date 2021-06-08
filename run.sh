@@ -23,7 +23,7 @@ mkdir -p $REPORTS_DIR
 mkdir -p $LOGS_DIR
 
 # Create pre-req specs
-kubectl apply -f $SPECS_DIR
+kubectl apply -f $SPECS_DIR || true
 
 # Run tests
 ./ginkgo -v -p -focus=External.Storage \
