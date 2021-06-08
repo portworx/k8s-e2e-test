@@ -5,11 +5,11 @@ go:
   - 1.15.x
 script:
   - |
-    docker build -t docker.io/openstorage/k8s-e2e-test:master .
+    make container 
     if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then
       if [ "${TRAVIS_BRANCH}" == "master" ]; then
         docker login -u "${DOCKER_USER}" -p "${DOCKER_PASSWORD}";
-        docker push docker.io/openstorage/k8s-e2e-test:master 
+        make deploy
       fi
     fi
 notifications:
