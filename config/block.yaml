@@ -1,15 +1,15 @@
 ShortName: pxd
 StorageClass:
   # Load a StorageClass from the given file. This file must be in the same directory as this one
-  FromFile: /specs/storageclass.yaml
+  FromExistingClassName: portworx-sc
   
 SnapshotClass:
   # Must be set to enable snapshotting tests
-  FromFile: /specs/snapshotclass.yaml
+  FromExistingClassName: px-csi-snapclass
 
 DriverInfo:
   # Internal name of the driver, this is used as a display name in the test case and test objects
-  Name: pxd
+  Name: pxd.portworx.com
 
   # The range of disk size supported by this driver
   SupportedSizeRange:

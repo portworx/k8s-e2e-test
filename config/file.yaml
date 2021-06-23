@@ -1,11 +1,11 @@
 ShortName: pxd
 StorageClass:
   # Load a StorageClass from the given file. This file must be in the same directory as this one
-  FromFile: /specs/storageclass.yaml
+  FromExistingClassName: portworx-sc
   
 SnapshotClass:
   # Must be set to enable snapshotting tests
-  FromFile: /specs/snapshotclass.yaml
+  FromExistingClassName: px-csi-snapclass
 
 DriverInfo:
   # Internal name of the driver, this is used as a display name in the test case and test objects
@@ -55,7 +55,7 @@ DriverInfo:
     nodeExpansion: true
 
     # Support volume that an run on single node only (like hostpath)
-    singleNodeVolume: false
+    singleNodeVolume: true
 
     # Support ReadWriteMany access modes
     RWX: true
