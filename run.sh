@@ -35,13 +35,10 @@ if [ "$INSTALL_SNAPSHOTTING" == "true" ]; then
 fi
 
 # Create pre-req specs
-kubectl apply -f $SPECS_DIR
+kubectl apply -f $SPECS_DIR || true
 
 # Run tests
 ./ginkgo -v -p -focus=External.Storage \
 	-skip=$SKIP_PATTERN ./e2e.test -- \
 	-report-dir=$REPORTS_DIR \
 	-storage.testdriver=$CONFIG_PATH 
-
-# Cleanup specs
-kubectl delete -f $SPECS_DIR
