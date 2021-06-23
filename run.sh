@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Harcoded
 K8S_E2E_TEST_PATH=$PWD/e2e.test
 REPORTS_DIR=reports
@@ -6,8 +8,9 @@ SPECS_DIR=/specs
 SKIP_PATTERN="\[Serial\]|\[Disruptive\]|\[Feature:|Disruptive|different\s+node"
 
 # Configurable
-K8S_VERSION="${K8S_VERSION:-v1.20.6}"
+K8S_VERSION="${K8S_VERSION:-v1.21.0}"
 CONFIG_NAME="${CONFIG_NAME-block}"
+INSTALL_SNAPSHOTTING="${INSTALL_SNAPSHOTTING:-false}"
 
 # Dynamic
 CONFIG_PATH=config/${CONFIG_NAME}.yaml
@@ -21,6 +24,15 @@ curl --location https://dl.k8s.io/$K8S_VERSION/kubernetes-test-linux-amd64.tar.g
 # Create folders
 mkdir -p $REPORTS_DIR
 mkdir -p $LOGS_DIR
+
+# Install snapshotting
+if [ "$INSTALL_SNAPSHOTTING" == "true" ]; then
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+fi
 
 # Create pre-req specs
 kubectl apply -f $SPECS_DIR
