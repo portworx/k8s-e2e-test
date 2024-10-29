@@ -4,7 +4,7 @@
 K8S_E2E_TEST_PATH=$PWD/e2e.test
 REPORTS_DIR=reports
 LOGS_DIR=/logs
-SPECS_DIR=/specs
+SPECS_DIR="${SPECS_DIR_OVERRIDE:=/specs}"
 SKIP_PATTERN="\[Disruptive\]"
 
 # Configurable
